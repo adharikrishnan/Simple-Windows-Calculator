@@ -128,11 +128,24 @@ namespace calculatorapp
 
         private void backspace_button_Click(object sender, EventArgs e)
         {
-            if (display.Text != "" || equation_box.Text != "")
+            
+
+            if (display.Text != "" && equation_box.Text != "")
             {
                 display.Text = display.Text.Substring(0,display.Text.Length - 1);
                 equation_box.Text = equation_box.Text.Substring(0, equation_box.Text.Length - 1);
+                return;
             }
+
+            // Needs to be fixed
+            if (equation_box.Text != "") 
+            { 
+                equation_box.Clear(); 
+                value_1 = 0; 
+                operator_used = false; 
+            }
+
+
         }
     }
 }
