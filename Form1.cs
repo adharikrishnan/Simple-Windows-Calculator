@@ -42,6 +42,7 @@ namespace calculatorapp
             }
             if(equation_box.Text == "0")
             { equation_box.Clear(); }
+            
 
             Button number_value = (Button)sender;
 
@@ -109,10 +110,10 @@ namespace calculatorapp
                     break;
 
                 case "Mod":
-
-
+                    value_1 %= Double.Parse(display.Text);
+                    display.Text = value_1.ToString();
+                    break;
                 default:
-                    
                     break;
             }
             operator_used = false;
@@ -137,14 +138,25 @@ namespace calculatorapp
                 return;
             }
 
-            // Needs to be fixed
-            if (equation_box.Text != "") 
-            { 
-                equation_box.Clear(); 
-                value_1 = 0; 
-                operator_used = false; 
+            // Dirty Solution, Needs fixing
+            else if (equation_box.Text != "" && operator_used) 
+            {
+                operator_type = ""; 
+                operator_used = false;
+                display.Clear();
+                equation_box.Text = equation_box.Text.Substring(0, equation_box.Text.Length - 1);
+                display.Text = equation_box.Text;
+                return;
+
             }
 
+            else if (equation_box.Text != "" && !operator_used && display.Text == "")
+            {
+                equation_box.Text = equation_box.Text.Substring(0, equation_box.Text.Length - 1);
+                display.Text = equation_box.Text;
+                value_1 = Double.Parse(display.Text);
+
+            }
 
         }
     }
